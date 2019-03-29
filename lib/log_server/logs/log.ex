@@ -17,4 +17,16 @@
     |> validate_required([:name, :user_id, :type])
   end
 
+
+  @doc "Dataloader"
+  def data() do
+    Dataloader.Ecto.new(LogServer.Repo, query: &query/2)
+  end
+
+  @doc "Dataloader"
+  def query(queryable, _params) do
+    queryable
+  end
+
+
 end

@@ -19,6 +19,32 @@ defmodule LogServerWeb.Router do
     get "/", PageController, :index
   end
 
+
+  scope "/" do
+    pipe_through :api
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+            schema: LogServerWeb.Schema,
+            interface: :simple,
+            context: %{pubsub: LogServerWeb.Endpoint}
+  end
+
+
+#  pipeline :api do
+#    plug :accepts, ["json"]
+#  end
+#
+#  scope "/api" do
+#    pipe_through :api
+#
+#    forward "/graphiql", Absinthe.Plug.GraphiQL,
+#            schema: LogServerWeb.Schema
+#
+#    forward "/", Absinthe.Plug,
+#            schema: LogServerWeb.Schema
+#
+#  end
+
   # Other scopes may use custom stacks.
   # scope "/api", LogServerWeb do
   #   pipe_through :api

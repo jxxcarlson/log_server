@@ -2,6 +2,8 @@ defmodule LogServer.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias LogServer.Logs.Log
+
   schema "users" do
     field :admin, :boolean, default: false
     field :email, :string
@@ -9,6 +11,7 @@ defmodule LogServer.Accounts.User do
     field :password_hash, :string
     field :username, :string
     field :verified, :boolean, default: false
+    has_many :logs, Log
 
     timestamps()
   end

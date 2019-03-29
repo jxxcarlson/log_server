@@ -18,4 +18,14 @@ defmodule LogServer.Logs.Event do
     |> validate_required([:quantity, :log_id])
   end
 
+  @doc "Dataloader"
+  def data() do
+    Dataloader.Ecto.new(LogServer.Repo, query: &query/2)
+  end
+
+  @doc "Dataloader"
+  def query(queryable, _params) do
+    queryable
+  end
+
 end
