@@ -23,6 +23,12 @@ defmodule LogServerWeb.Endpoint do
     plug Phoenix.CodeReloader
   end
 
+  plug Corsica,
+       origins: ["http://localhost:8000"],
+       log: [rejected: :error, invalid: :warn, accepted: :debug],
+       allow_headers: ["content-type", "accept", "authorization"]
+
+
   plug Plug.RequestId
   plug Plug.Logger
 
