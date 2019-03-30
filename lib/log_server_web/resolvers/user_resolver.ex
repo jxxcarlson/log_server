@@ -11,6 +11,10 @@ defmodule LogServerWeb.Resolvers.UserResolver do
     {:ok, Repo.get_by(User, id: id)}
   end
 
+  def get_user_by_email(_root, %{email: email}, _resolution) do
+    {:ok, Repo.get_by(User, email: email)}
+  end
+
   def list_users(_root, _args, _info) do
     {:ok, Repo.all User}
   end

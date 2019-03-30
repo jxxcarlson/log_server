@@ -12,7 +12,7 @@ defmodule LogServerWeb.EventView do
 
   def render("event.json", %{event: event}) do
     %{id: event.id,
-      quantity: event.quantity,
+      value: event.value,
       log_id: event.log_id}
   end
 end

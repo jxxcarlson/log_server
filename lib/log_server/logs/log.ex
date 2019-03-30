@@ -4,7 +4,7 @@
 
   schema "logs" do
     field :name, :string
-    field :type, :string
+    field :log_type, :string
     field :user_id, :integer
 
     timestamps()
@@ -13,8 +13,8 @@
   @doc false
   def changeset(log, attrs) do
     log
-    |> cast(attrs, [:name, :user_id, :type])
-    |> validate_required([:name, :user_id, :type])
+    |> cast(attrs, [:name, :user_id, :log_type])
+    |> validate_required([:name, :user_id, :log_type])
   end
 
 

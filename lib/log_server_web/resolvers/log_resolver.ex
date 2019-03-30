@@ -1,13 +1,15 @@
 defmodule LogServerWeb.Resolvers.LogResolver do
   @moduledoc false
 
+  import Ecto.Query, only: [from: 2]
+
   alias LogServer.Repo
   alias LogServer.Logs.Log
   alias LogServer.Logs
 
 
   def logs_for_user(_root, %{user_id: user_id}, _resolution) do
-    {:ok, Repo.get_by(Log, user_id: user_id)}
+    Logs.logs_for_user(user_id)
   end
 
   def list_logs(_root, _args, _info) do

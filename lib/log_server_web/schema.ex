@@ -31,32 +31,42 @@ defmodule LogServerWeb.Schema do
   end
 
 
+
+   enum :log_type_value do
+    value :FLOAT
+    value :INTEGER
+    value :DATETIME
+   end
+
+
   object :user do
     field :id, non_null(:integer)
-    field :email, :string
-    field :username, :string
-    field :password_hash
-    field :password, :string
-    field :admin, :boolean
-    field :verified, :boolean
-    field :inserted_at, :naive_datetime
-    field :logs, list_of(:log), resolve: dataloader(Log)
+    field :email, non_null(:string)
+    field :username, non_null(:string)
+    field :password_hash, non_null(:string)
+    field :password, non_null(:string)
+    field :admin, non_null(:boolean)
+    field :verified, non_null(:boolean)
+    field :inserted_at, non_null(:naive_datetime)
+    field :logs, non_null(list_of(non_null(:log))), resolve: dataloader(Log)
   end
 
   object :log do
     field :id, non_null(:integer)
-    field :name, :string
-    field :user_id, :integer
-    field :type, :string
-    field :inserted_at, :naive_datetime
-    # field :events, list_of(:event), resolve: dataloader(Event)
+    field :name, non_null(:string)
+    field :user_id, non_null(:integer)
+    field :log_type, non_null(:string) do
+      arg :my_arg, :log_type_value, default_value: :FLOAT
+    end
+    field :inserted_at, non_null(:naive_datetime)
+    field :events, non_null(list_of(non_null(:event))), resolve: dataloader(Event)
   end
 
 
   object :event do
-    field :id, :integer
-    field :log_id, :integer
-    field :quantity, :float
+    field :id, non_null(:integer)
+    field :log_id, non_null(:integer)
+    field :value, non_null(:string)
   end
 
 
@@ -94,14 +104,14 @@ defmodule LogServerWeb.Schema do
     field :create_log, :log do
       arg :name, non_null(:string)
       arg :user_id, non_null(:integer)
-      arg :type, non_null(:string)
+      arg :log_type, non_null(:log_type_value)
 
       resolve &LogResolver.create_log/3
     end
 
     field :create_event, :event do
       arg :log_id, non_null(:integer)
-      arg :quantity, non_null(:float)
+      arg :value, non_null(:float)
 
       resolve &EventResolver.create_event/3
     end
@@ -122,7 +132,7 @@ defmodule LogServerWeb.Schema do
   }
 
   mutation {
-    createLog(userId: 1, name: "Piano", type: "Cumulative") {
+    createLog(userId: 1, name: "Piano", logType: "Cumulative") {
        name
     }
   }
@@ -133,7 +143,7 @@ defmodule LogServerWeb.Schema do
       name
       id
       userId
-      type
+      logType
     }
   }
 
@@ -142,17 +152,17 @@ defmodule LogServerWeb.Schema do
     name
     id
     userId
-    type
+    logType
   }
   }
 
 
   mutation {
-    createEvent(logId: 1, quantity: 24) {
+    createEvent(logId: 1, value: 77) {
        quantity
-       insertedAt
     }
   }
+
 
 
   {

@@ -6,7 +6,7 @@ defmodule LogServer.Logs.Event do
 
   schema "events" do
     field :log_id, :integer
-    field :quantity, :float
+    field :value, :string
 
     timestamps()
   end
@@ -14,8 +14,8 @@ defmodule LogServer.Logs.Event do
   @doc false
   def changeset(event, attrs) do
     event
-    |> cast(attrs, [:quantity, :log_id])
-    |> validate_required([:quantity, :log_id])
+    |> cast(attrs, [:value, :log_id])
+    |> validate_required([:value, :log_id])
   end
 
   @doc "Dataloader"

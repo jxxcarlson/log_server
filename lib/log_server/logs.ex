@@ -21,6 +21,12 @@ defmodule LogServer.Logs do
     Repo.all(Log)
   end
 
+  def logs_for_user(user_id) do
+    query = from(log in Log, where: log.user_id == ^user_id)
+    {:ok,  Repo.all(query) }
+  end
+
+
   @doc """
   Gets a single log.
 
@@ -50,9 +56,24 @@ defmodule LogServer.Logs do
 
   """
   def create_log(attrs \\ %{}) do
+
+    log_type = attrs[:log_type]
+    little_map = %{log_type: string_value_of_log_type(attrs[:log_type])}
+    attrs2 = Map.merge attrs, little_map
+
     %Log{}
-    |> Log.changeset(attrs)
+    |> Log.changeset(attrs2)
     |> Repo.insert()
+    
+  end
+
+  def string_value_of_log_type(tipe) do
+    case tipe do
+      :INTEGER -> "INTEGER"
+      :FLOAT -> "FLOAT"
+      :DATETIME -> "DATETime"
+      _ -> "NONE"
+    end
   end
 
   @doc """
