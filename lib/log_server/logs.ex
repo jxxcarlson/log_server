@@ -141,7 +141,7 @@ defmodule LogServer.Logs do
       [%Event{}, ...]
 
   """
-  def list_envents do
+  def list_events do
     Repo.all(Event)
   end
 
