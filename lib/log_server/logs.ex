@@ -5,6 +5,7 @@ defmodule LogServer.Logs do
 
   import Ecto.Query, warn: false
   alias LogServer.Repo
+  alias LogServer.Logs.Event
 
   alias LogServer.Logs.Log
 
@@ -23,6 +24,12 @@ defmodule LogServer.Logs do
 
   def logs_for_user(user_id) do
     query = from(log in Log, where: log.user_id == ^user_id)
+    {:ok,  Repo.all(query) }
+  end
+
+
+  def events_for_log(log_id) do
+    query = from(event in Event, where: event.log_id == ^log_id)
     {:ok,  Repo.all(query) }
   end
 
@@ -64,7 +71,7 @@ defmodule LogServer.Logs do
     %Log{}
     |> Log.changeset(attrs2)
     |> Repo.insert()
-    
+
   end
 
   def string_value_of_log_type(tipe) do

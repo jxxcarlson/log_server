@@ -5,9 +5,8 @@ defmodule LogServerWeb.Resolvers.EventResolver do
   alias LogServer.Logs.Event
   alias LogServer.Logs
 
-
-  def list_events(_root, %{log_id: log_id}, _resolution) do
-    {:ok, Repo.get_by(Event, log_id: log_id)}
+  def list_events_for_log(_root, %{log_id: log_id}, _resolution) do
+    Logs.events_for_log(log_id)
   end
 
   def list_events(_root, _args, _info) do

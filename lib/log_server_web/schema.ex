@@ -91,6 +91,11 @@ defmodule LogServerWeb.Schema do
       resolve &LogResolver.list_logs/3
     end
 
+    field :list_events_for_log, non_null(list_of(non_null(:event))) do
+      arg :log_id, non_null(:integer)
+      resolve &EventResolver.list_events_for_log/3
+    end
+
     field :list_events, non_null(list_of(non_null(:event))) do
       resolve &EventResolver.list_events/3
     end
@@ -123,7 +128,7 @@ defmodule LogServerWeb.Schema do
   http://localhost:4000/graphiql
 
 
-  {
+  query {
     getUser(id: 1) {
       username
       email
@@ -138,7 +143,7 @@ defmodule LogServerWeb.Schema do
   }
 
 
-  {
+  query {
     listLogs {
       name
       id
@@ -147,13 +152,13 @@ defmodule LogServerWeb.Schema do
     }
   }
 
-  {
+  query {
   logsForUser(userId: 1) {
     name
     id
     userId
     logType
-  }
+    }
   }
 
 
@@ -163,13 +168,19 @@ defmodule LogServerWeb.Schema do
     }
   }
 
+  query {
+    listEventsForLog(log_id: 1) {
+      id
+      logId
+      value
+    }
+  }
 
-
-  {
+  query {
     listEvents {
       id
       logId
-      quantity
+      value
     }
   }
 
