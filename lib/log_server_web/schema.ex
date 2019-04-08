@@ -138,7 +138,7 @@ defmodule LogServerWeb.Schema do
   }
 
   mutation {
-    createLog(userId: 1, name: "Piano", logType: "Cumulative") {
+    createLog(userId: 1, name: "Piano", logType: "FLOAT") {
        name
     }
   }
