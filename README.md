@@ -18,3 +18,13 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
+  
+## Parameters
+
+[Setup instructins for Heroku](https://hexdocs.pm/phoenix/heroku.html)
+
+https://sleepy-thicket-56112.herokuapp.com
+
+Created postgresql-curly-53918 as DATABASE_URL
+
+$ heroku run "POOL_SIZE=2 mix login_server.task"

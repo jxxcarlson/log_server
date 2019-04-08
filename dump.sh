@@ -1,0 +1,1 @@
+pg_dump -Fc --no-acl --no-owner -h localhost -U postgres log_server_dev > log_server.dump

@@ -15,7 +15,8 @@ config :log_server, LogServerWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "FRhbgktc8c0f/+DpZuKkZbjXPi3GQpEZYfbxFjZt1GYP1E6bOaqgP6o3U2Q11kwh",
   render_errors: [view: LogServerWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: LogServer.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: LogServer.PubSub, adapter: Phoenix.PubSub.PG2],
+  http: [port: System.get_env("PORT")]
 
 # Configures Elixir's Logger
 config :logger, :console,
