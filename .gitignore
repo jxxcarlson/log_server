@@ -5,5 +5,5 @@ log_server.iml
 mix.lock
 .idea/
 
-assets_/
+assets/
 log_server.dump

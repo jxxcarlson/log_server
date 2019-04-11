@@ -9,6 +9,7 @@ defmodule LogServerWeb.Resolvers.LogResolver do
 
 
   def logs_for_user(_root, %{user_id: user_id}, _resolution) do
+    IO.puts "In resolvers logs_for_uer, user_id = #{user_id}"
     Logs.logs_for_user(user_id)
   end
 

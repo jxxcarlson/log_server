@@ -101,4 +101,28 @@
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
+
+
+  def find_by_token(token) do
+    if token == "1f26cbfff22e414099a33666d9f3e699" do
+      user = LogServer.Accounts.get_user! 1
+      {:ok, user}
+    else
+      nil # {:error, "not authorized"}
+    end
+
+  end
+
+  # https://github.com/absinthe-graphql/absinthe/blob/master/guides/context-and-authentication.md
+  defp authorize22(token) do
+    User
+    |> where(token: ^token)
+    |> Repo.one
+    |> case do
+         nil -> {:error, "invalid authorization token"}
+         user -> {:ok, user}
+       end
+  end
+
+
 end

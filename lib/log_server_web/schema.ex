@@ -9,7 +9,7 @@ defmodule LogServerWeb.Schema do
 
 
 
-    import Absinthe.Resolution.Helpers, only: [dataloader: 1]
+  import Absinthe.Resolution.Helpers, only: [dataloader: 1]
   import_types Absinthe.Type.Custom
 
   alias LogServerWeb.Resolvers.LogResolver

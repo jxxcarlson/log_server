@@ -1,6 +1,8 @@
 defmodule LogServerWeb.Router do
   use LogServerWeb, :router
 
+  alias LogServerWeb.Context
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -19,15 +21,17 @@ defmodule LogServerWeb.Router do
     get "/", PageController, :index
   end
 
+  # https://github.com/absinthe-graphql/absinthe/blob/master/guides/context-and-authentication.md
+
   pipeline :graphql do
     plug :fetch_session
     plug :fetch_flash
-    plug InjectDetect
+    plug Context
   end
 
-  scope "/graphql" do
+  scope "/graphiql" do
     pipe_through :graphql
-    forward "/", Absinthe.Plug, schema: InjectDetect.Schema
+    forward "/", Absinthe.Plug, schema: LogServerWeb.Schema
   end
 
 #  scope "/" do
