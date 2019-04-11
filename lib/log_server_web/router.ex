@@ -19,15 +19,25 @@ defmodule LogServerWeb.Router do
     get "/", PageController, :index
   end
 
-
-  scope "/" do
-    pipe_through :api
-
-    forward "/graphiql", Absinthe.Plug.GraphiQL,
-            schema: LogServerWeb.Schema,
-            interface: :simple,
-            context: %{pubsub: LogServerWeb.Endpoint}
+  pipeline :graphql do
+    plug :fetch_session
+    plug :fetch_flash
+    plug InjectDetect
   end
+
+  scope "/graphql" do
+    pipe_through :graphql
+    forward "/", Absinthe.Plug, schema: InjectDetect.Schema
+  end
+
+#  scope "/" do
+#    pipe_through :api
+#
+#    forward "/graphiql", Absinthe.Plug.GraphiQL,
+#            schema: LogServerWeb.Schema,
+#            interface: :simple,
+#            context: %{pubsub: LogServerWeb.Endpoint}
+#  end
 
 
 #  pipeline :api do

@@ -6,17 +6,21 @@ defmodule LogServerWeb.LogController do
 
   action_fallback LogServerWeb.FallbackController
 
+
   def index(conn, _params) do
     logs = Logs.list_logs()
     render(conn, "index.json", logs: logs)
   end
 
   def create(conn, %{"log" => log_params}) do
-    with {:ok, %Log{} = log} <- Logs.create_log(log_params) do
+    with {:ok, result} <- Token.fake_authenticated_from_header(conn),
+         {:ok, %Log{} = log} <- Logs.create_log(log_params) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.log_path(conn, :show, log))
       |> render("show.json", log: log)
+    else
+      err -> render(conn, "reply.json", message: "Error: not authorized")
     end
   end
 
