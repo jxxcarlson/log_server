@@ -24,9 +24,11 @@ defmodule LogServerWeb.Endpoint do
   end
 
   plug Corsica,
-       origins: ["https://206.189.184.194"],
+       origins: ["https://206.189.184.194", "http://localhost:8175"],
        log: [rejected: :error, invalid: :warn, accepted: :debug],
        allow_headers: ["content-type", "accept", "authorization"]
+
+##origins: ["https://206.189.184.194", "http:/localhost:8175"],
 
 
   plug Plug.RequestId
