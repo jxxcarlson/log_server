@@ -9,8 +9,8 @@ defmodule LogServer.Logs.Event do
 
   schema "events" do
     field :log_id, :integer
-    field :value, :string
-    field :value2, :float
+    field :value, :float
+    field :unit, :string
 
     timestamps()
   end
@@ -18,7 +18,7 @@ defmodule LogServer.Logs.Event do
   @doc false
   def changeset(event, attrs) do
     event
-    |> cast(attrs, [:value, :value2, :log_id])
+    |> cast(attrs, [:value, :unit, :log_id])
     |> validate_required([:value, :log_id])
   end
 
@@ -37,8 +37,8 @@ defmodule LogServer.Logs.Event do
   end
 
   def convert_event(event) do
-    {newValue, ""} = Float.parse event.value
-    cs = changeset(event, %{value2: 60*newValue})
+    {newValue, ""} = Float.parse event.quantity |> IO.inspect, label:  "EV"
+    cs = changeset(event, %{quantity: 60*newValue})
     Repo.update(cs)
   end
 

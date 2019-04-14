@@ -66,8 +66,8 @@ defmodule LogServerWeb.Schema do
   object :event do
     field :id, non_null(:integer)
     field :log_id, non_null(:integer)
-    field :value, non_null(:string)
-    field :value2, non_null(:float)
+    field :unit, non_null(:string)
+    field :value, non_null(:float)
     field :inserted_at, non_null(:naive_datetime)
   end
 
@@ -118,7 +118,7 @@ defmodule LogServerWeb.Schema do
 
     field :create_event, :event do
       arg :log_id, non_null(:integer)
-      arg :value, non_null(:string)
+      arg :value, non_null(:float)
 
       resolve &EventResolver.create_event/3
     end
