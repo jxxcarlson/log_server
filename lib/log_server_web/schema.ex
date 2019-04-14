@@ -67,6 +67,7 @@ defmodule LogServerWeb.Schema do
     field :id, non_null(:integer)
     field :log_id, non_null(:integer)
     field :value, non_null(:string)
+    field :value2, non_null(:float)
     field :inserted_at, non_null(:naive_datetime)
   end
 

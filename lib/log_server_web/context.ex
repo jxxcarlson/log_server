@@ -11,7 +11,7 @@ defmodule LogServerWeb.Context do
     opts
   end
 
-  def call(conn, _) do
+  def call1(conn, _) do
     context = build_context(conn)
     with %{current_user: current_user} <- context do
       Absinthe.Plug.put_options(conn, context: context)
@@ -25,6 +25,10 @@ defmodule LogServerWeb.Context do
 
   end
 
+  def call(conn, _) do
+    context = build_context(conn)
+    Absinthe.Plug.put_options(conn, context: context)
+  end
 
   def extract_token(str) do
     String.replace_leading str, "Bearer ", ""

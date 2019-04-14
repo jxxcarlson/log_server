@@ -38,7 +38,7 @@ defmodule LogServer.Logs.Event do
 
   def convert_event(event) do
     {newValue, ""} = Float.parse event.value
-    cs = changeset(event, %{value2: newValue})
+    cs = changeset(event, %{value2: 60*newValue})
     Repo.update(cs)
   end
 
