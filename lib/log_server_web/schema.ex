@@ -102,6 +102,10 @@ defmodule LogServerWeb.Schema do
       resolve &EventResolver.list_events/3
     end
 
+    field :delete_event, non_null(list_of(non_null(:event))) do
+      resolve &EventResolver.delete_event/3
+    end
+
   end
 
 
