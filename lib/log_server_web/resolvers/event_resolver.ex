@@ -19,7 +19,17 @@ defmodule LogServerWeb.Resolvers.EventResolver do
       {:ok, event} ->
         {:ok, event}
       _error ->
-        {:error, "could not create log"}
+        {:error, "could not create event"}
+    end
+  end
+
+  def delete_event(_root, args, _info) do
+    # TODO: add detailed error message handling later
+    case Logs.delete_event(args) do
+      {:ok, event} ->
+        {:ok, event}
+      _error ->
+        {:error, "could not delete event"}
     end
   end
 
