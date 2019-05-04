@@ -209,7 +209,9 @@ defmodule LogServer.Logs do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_event(%Event{} = event) do
+  def delete_event(%{id: id}) do
+    IO.puts "DELETE EVENT #{id}"
+    event = Repo.get!(Event, id)
     Repo.delete(event)
   end
 
