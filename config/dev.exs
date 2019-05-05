@@ -47,16 +47,19 @@ config :log_server, LogServerWeb.Endpoint,
 
 # Watch static and templates for browser reloading.
 config :log_server, LogServerWeb.Endpoint,
+  pubsub: [name: LogServer.PubSub, adapter: Phoenix.PubSub.PG2],
   live_reload: [
     patterns: [
-      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
+       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
       ~r{lib/log_server_web/views/.*(ex)$},
       ~r{lib/log_server_web/templates/.*(eex)$}
     ]
   ]
 
+
 # Do not include metadata nor timestamps in development logs
+
 config :logger, :console, format: "[$level] $message\n"
 
 # Set a higher stacktrace during development. Avoid configuring such
