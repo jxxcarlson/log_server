@@ -26,7 +26,7 @@ defmodule LogServerWeb.Endpoint do
   plug Corsica,
        origins: ["https://knode.io", "https://206.189.184.194", "http://localhost:8175", "http://localhost:8000"],
        log: [rejected: :error, invalid: :warn, accepted: :debug],
-       allow_headers: ["content-type", "accept", "authorization"]
+       allow_headers: ["content-type", "accept", "authorization", "access-control-allow-origin"]
 
 ##origins: ["https://206.189.184.194", "http:/localhost:8175"],
 
